@@ -19,12 +19,14 @@ public class MemberUpdate extends ActionSupport implements SessionAware {
     
     @Override
     public String execute() throws Exception {
+//        Retrieve the current member and prepare for update.
         Member oldmem = (Member) session.get("member");
         oldmem.setFirstname(member.getFirstname());
         oldmem.setLastname(member.getLastname());
         oldmem.setMiddlename(member.getMiddlename());
         oldmem.setPassword(member.getPassword());
         oldmem.setPassattempt(member.getPassword());
+//        if error retain old member else update member 
         String msg = MemberDB.updtMember(oldmem);
         if(msg.startsWith("Error")) {
             member = MemberDB.getMemberByID(oldmem.getMemid());

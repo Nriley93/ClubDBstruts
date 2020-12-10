@@ -3,6 +3,7 @@ package actions;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -18,12 +19,13 @@ public class ShowPurchases extends ActionSupport implements SessionAware {
     
     @Override
     public String execute() throws Exception {
+//        Allows a member to view all purchases or specifiy date to view
         Map request = (Map) ActionContext.getContext().get("request");
         String dt = this.month+"-"+this.day+"-"+this.year;
         Date pd;
         try{
             pd = new SimpleDateFormat("MM-dd-yyy").parse(dt);
-        } catch(Exception e) {
+        } catch(ParseException e) {
             pd = null;
         }
         request.put("pd",pd);
@@ -44,6 +46,7 @@ public class ShowPurchases extends ActionSupport implements SessionAware {
     
     @Override
     public void validate() {
+//        validate date input by month, day, year.
         if(!this.month.isEmpty()){
             try{
                 int mo = Integer.parseInt(month);

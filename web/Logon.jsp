@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Welcome to the Club - Please Login</h1>
+        <!--Hibernate form examlple-->
 <!--        <form action="ClubLogon" method="post">
             <table>
                 <tr>
@@ -29,6 +30,8 @@
             </table>
             <input type="submit" value="Login">
         </form>-->
+
+        <!--Struts form-->
         <s:form action="ClubLogon" method="post">
             <s:textfield name="userid" label="User Id" required="true"/>
             <s:password name="pattempt" label="Password" required="true"/>

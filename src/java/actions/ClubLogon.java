@@ -19,27 +19,32 @@ public class ClubLogon extends ActionSupport implements SessionAware {
     
     @Override
     public String execute() throws Exception {
-//        try {
-            String msg = ""; //"Credentials were: " + this.userid + " " + this.pattempt;
+        try {
+            String msg = "";
             Map request = (Map) ActionContext.getContext().get("request");
+//            Retrieve member from input. If member name is correct validate password
             member = MemberDB.getMemberByID(this.userid);
             if(member != null) {
+//                password validation
                 member.setPassattempt(Long.parseLong(this.pattempt));
                 if(member.isAuthenticated()) {
+//                    member is authenticated
                     request.put("msg", "Member " + this.userid + " is authenticated");
                     session.put("member", member);
                     return SUCCESS;
                 } else {
+//                    member was not authenticated
                     request.put("msg", "Member " + this.userid + " found but not authenticated");
                     return INPUT;
                 }
             } else {
+//                member is null or non existent
                 request.put("msg", "Member " + this.userid + " not found");
                 return INPUT;
             }
-//        } catch(Exception e) {
-//            return ERROR;
-//        }
+        } catch(NumberFormatException e) {
+            return ERROR;
+        }
     }
     @Override
     public void validate() {
@@ -48,7 +53,7 @@ public class ClubLogon extends ActionSupport implements SessionAware {
             if(pat <= 0) {
                 throw new NumberFormatException("Bad password: not > 0");
             }
-        } catch(Exception e) {
+        } catch(NumberFormatException e) {
             addFieldError("pattempt", "Password issue " + e.getMessage());
         }
     }
