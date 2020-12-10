@@ -1,0 +1,21 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="ClubLogon" class="actions.ClubLogon">
+            <result name="success">/MemberScreen.jsp</result>
+            <result name="input">/Logon.jsp</result>
+            <result name="error">/Error.jsp</result>
+        </action>
+        <action name="MemberUpdate" class="actions.MemberUpdate">
+            <result name="success">/MemberScreen.jsp</result>
+        </action>
+        <action name="ShowPurchases" class="actions.ShowPurchases">
+            <result name="success">/Purchases.jsp</result>
+            <result name="input">/MemberScreen.jsp</result>
+        </action>
+    </package>
+</struts>
